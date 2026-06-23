@@ -1,10 +1,290 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Mi Página en GitHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Examen Parcial - Universidad La Salle</title>
+    <style>
+        :root {
+            --primary: #002f6c;
+            --secondary: #0056b3;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --border: #dee2e6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 2.2rem; }
+        header h2 { margin: 0.5rem 0 0 0; font-size: 1.3rem; font-weight: 300; color: #cbd5e1; }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        h2.section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .meta-item strong { color: var(--secondary); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        table, th, td { border: 1px solid var(--border); }
+        th, td { padding: 0.75rem; text-align: left; }
+        th { background-color: var(--primary); color: white; }
+        tr:nth-child(even) { background-color: var(--light); }
+
+        /* Consola de Demostración Interactiva */
+        .demo-box {
+            background: #2d3748;
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 1rem;
+        }
+
+        .console-log {
+            background: #1a202c;
+            padding: 1rem;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #48bb78;
+            margin-top: 1rem;
+            border-left: 4px solid var(--success);
+        }
+
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: #004085; }
+        select { padding: 0.5rem; border-radius: 4px; margin-right: 0.5rem; }
+    </style>
 </head>
 <body>
-    <h1>¡Hola Mundo! Mi página está viva.</h1>
-    <p>Subido gracias a GitHub Pages.</p>
+
+    <header>
+        <h1>UNIVERSIDAD LA SALLE</h1>
+        <h2>Facultad de Arquitectura e Ingenierías</h2>
+        <p style="margin: 0.5rem 0 0 0; font-style: italic;">Fundamentos de Diseño de Software</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2 class="section-title">Aplicación de Patrones de Diseño en un Sistema de Gestión de Biblioteca</h2>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <strong>Docente:</strong><br>Ricardo Fabrizio Calienes Rodriguez
+                </div>
+                <div class="meta-item">
+                    <strong>Estudiantes:</strong><br>
+                    • Dayehika Pacheco Carrera<br>
+                    • Joselyn Toribio Saloma<br>
+                    • Brayan Portugal Gavancho<br>
+                    • Valentino Carpio Arana<br>
+                    • Miguel Torres Campano
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">1. Introducción y Planteamiento del Problema</h2>
+            <p><strong>Descripción:</strong> El diseño de software de calidad representa uno de los principales desafíos en la ingeniería de sistemas actuales. El crecimiento de las aplicaciones exige altos niveles de mantenibilidad y extensibilidad[cite: 14, 15]. Este trabajo aborda un <strong>Sistema de Gestión de Biblioteca (SGB)</strong> aplicando patrones de diseño para mitigar problemas de código acoplado e improvisado[cite: 17, 26].</p>
+            <p><strong>Problema Principal:</strong> ¿Cómo diseñar un sistema de gestión de biblioteca que sea extensible, mantenible y de bajo acoplamiento mediante la aplicación sistemática de patrones de diseño de software? [cite: 28]</p>
+            <h3>Objetivo General</h3>
+            <p>Diseñar e implementar conceptualmente un sistema de gestión de biblioteca aplicando patrones de diseño creacionales, estructurales y de comportamiento[cite: 39].</p>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">2. Marco Teórico: Principios SOLID Aplicados</h2>
+            <ul>
+                <li><strong>SRP (Responsabilidad Única):</strong> <code>SistemaGestion</code> no envía notificaciones directamente, delega a los Observadores[cite: 50, 51, 52].</li>
+                <li><strong>OCP (Abierto/Cerrado):</strong> Permite agregar nuevas búsquedas (Strategy) o notificaciones sin alterar clases base[cite: 53, 54].</li>
+                <li><strong>LSP (Sustitución de Liskov):</strong> Las implementaciones como <code>NotificadorEmail</code> son intercambiables de forma transparente[cite: 55, 56].</li>
+                <li><strong>ISP (Segregación de Interfaces):</strong> Interfaces específicas independientes como <code>IObservador</code> y <code>IEstrategiaBusqueda</code>[cite: 57, 58].</li>
+                <li><strong>DIP (Inversión de Dependencias):</strong> Los módulos de alto nivel dependen de abstracciones, no de detalles concretos[cite: 59, 60].</li>
+            </ul>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--secondary);">
+            <h2 class="section-title">3. Laboratorio Interactivo: Patrones Ejecutándose en Vivo</h2>
+            <p>Usa los controles de abajo para interactuar directamente con la arquitectura simulada de tu informe:</p>
+            
+            <div class="demo-box">
+                <div>
+                    <strong>1. Factory Method (Crear Recurso Bibliográfico):</strong><br>
+                    <select id="factoryType">
+                        <option value="Fisico">Libro Físico</option>
+                        <option value="Digital">Libro Digital</option>
+                        <option value="Revista">Revista Académica</option>
+                    </select>
+                    <button class="btn" onclick="ejecutarFactory()">Instanciar con Factory</button>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <strong>2. Observer & Strategy (Simular Préstamo y Búsqueda):</strong><br>
+                    <button class="btn" onclick="simularPrestamo()">Registrar Préstamo (Dispara Observers)</button>
+                    <select id="strategyType">
+                        <option value="Titulo">Búsqueda por Título</option>
+                        <option value="Autor">Búsqueda por Autor</option>
+                    </select>
+                    <button class="btn" onclick="ejecutarStrategy()">Cambiar Estrategia y Buscar</button>
+                </div>
+
+                <div class="console-log" id="consoleOutput">
+                    >> Consola del Sistema de Biblioteca lista. Esperando acciones...
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">4. Matriz de Resultados (Antes vs. Después)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Antes (Sin Patrones)</th>
+                        <th>Después (Con Patrones)</th>
+                        <th>Mejora Obtenida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Acoplamiento</strong></td>
+                        <td>Alto: módulos interdependientes, cambios rompían código[cite: 191].</td>
+                        <td>Bajo: comunicación vía interfaces. Cambios localizados[cite: 191].</td>
+                        <td>Reducción de dependencias directas: de 12 a 3[cite: 191].</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extensibilidad</strong></td>
+                        <td>Modificar clases existentes de manera rígida (Viola OCP)[cite: 191].</td>
+                        <td>Nuevos comportamientos mediante interfaces independientes[cite: 191].</td>
+                        <td>Tiempo de integración de features baja de 8h a 2h[cite: 191].</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notificaciones</strong></td>
+                        <td>Monolítico (un método enviaba todo acoplado)[cite: 192].</td>
+                        <td>Desacoplado por completo vía patrón Observer[cite: 192].</td>
+                        <td>Agregar canal pasa de alterar código a crear clase nueva[cite: 193].</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        const consoleOutput = document.getElementById('consoleOutput');
+
+        function logToConsole(text) {
+            consoleOutput.innerHTML += `<br>> ${text}`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        // --- 1. DEMOSTRACIÓN PATRÓN FACTORY METHOD ---
+        class RecursoBase {
+            constructor(tipo) { this.tipo = tipo; }
+        }
+        class FactoryLibro {
+            static crearRecurso(tipo) {
+                logToConsole(`[Factory] Centralizando creación...`);
+                return new RecursoBase(tipo);
+            }
+        }
+        function ejecutarFactory() {
+            const tipo = document.getElementById('factoryType').value;
+            const recurso = FactoryLibro.crearRecurso(tipo);
+            logToConsole(`[Éxito] Objeto 'RecursoBase' de tipo concretado creado: <strong>Libro${tipo}</strong>`);
+        }
+
+        // --- 2. DEMOSTRACIÓN PATRÓN OBSERVER ---
+        class SistemaGestionSubject {
+            constructor() { this.observadores = []; }
+            registrar(obs) { this.observadores.push(obs); }
+            notificar() {
+                logToConsole(`[Subject] Evento detectado. Notificando observadores asignados...`);
+                this.observadores.forEach(obs => obs.actualizar());
+            }
+        }
+        const NotificadorEmail = { actualizar: () => logToConsole(`[Observer Email] ✉️ Correo enviado al alumno de La Salle.`) };
+        const NotificadorSMS = { actualizar: () => logToConsole(`[Observer SMS] 📱 Mensaje de texto de alerta enviado al teléfono.`) };
+        const NotificadorApp = { actualizar: () => logToConsole(`[Observer App] 🔔 Notificación Push enviada a la intranet.`) };
+
+        const sgbSubject = new SistemaGestionSubject();
+        sgbSubject.registrar(NotificadorEmail);
+        sgbSubject.registrar(NotificadorSMS);
+        sgbSubject.registrar(NotificadorApp);
+
+        function simularPrestamo() {
+            logToConsole(`[Sistema] Ejecutando: <code>registrarPréstamo(libroId)</code>`);
+            sgbSubject.notificar();
+        }
+
+        // --- 3. DEMOSTRACIÓN PATRÓN STRATEGY ---
+        const EstrategiaTitulo = { buscar: () => logToConsole(`[Strategy] Buscando en base de datos indexada por columna: 'Título'`) };
+        const EstrategiaAutor = { buscar: () => logToConsole(`[Strategy] Filtrando coincidencias de catálogo por columna: 'Autor'`) };
+
+        let estrategiaActual = EstrategiaTitulo;
+
+        function ejecutarStrategy() {
+            const tipo = document.getElementById('strategyType').value;
+            estrategiaActual = (tipo === "Titulo") ? EstrategiaTitulo : EstrategiaAutor;
+            logToConsole(`[Catálogo] Estrategia de búsqueda conmutada en tiempo de ejecución.`);
+            estrategiaActual.buscar();
+        }
+    </script>
 </body>
 </html>
