@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>SGB - Sistema de Gestión de Biblioteca (Arquitectura de Software)</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-   
+    
     <style>
         /* ESTILOS BASE CON LA NUEVA PALETA OSCURA Y ELEGANTE */
         body {
@@ -57,7 +57,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-       
+        
         /* BOTONES CON EL ROJO INTENSO Y TOQUES DORADOS */
         button {
             font-family: inherit;
@@ -93,7 +93,7 @@
             background: #800020;
             border-color: #ff4d6d;
         }
-       
+        
         /* INPUTS ESTILO DARK PREMIUM */
         input, select, textarea {
             font-family: inherit;
@@ -111,13 +111,13 @@
             border-color: #d4af37; /* Foco dorado en los campos */
             box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
         }
-       
+        
         #authSection {
             background: #140f0d;
             border: 2px solid #544133;
         }
         #appContent { display: none; }
-       
+        
         .user-badge {
             background: #800020;
             color: #ffffff;
@@ -128,7 +128,7 @@
             margin-bottom: 20px;
             font-size: 14px;
         }
-       
+        
         /* TABLAS OSCURAS CON CONTRASTE */
         table {
             width: 100%;
@@ -156,7 +156,7 @@
     </header>
 
     <div id="authSection" class="section">
-        <h2>🔒 Autenticación Obligatoria (Control de Acceso)</h2>
+        <h2> Autenticación Obligatoria (Control de Acceso)</h2>
         <div class="grid-3">
             <div>
                 <h3>1. Registrar Bibliotecario</h3>
@@ -176,7 +176,7 @@
 
     <div id="appContent">
         <div class="user-badge">
-            👤 Operador Activo: <strong id="sessionBadge" style="color: #d4af37;">ninguno</strong>
+             Operador Activo: <strong id="sessionBadge" style="color: #d4af37;">ninguno</strong>
             <button onclick="uiCerrarSesion()" style="background:#4a000b; border-color: #800020; padding:4px 10px; margin-left:15px; font-size:12px;">Cerrar Sesión</button>
         </div>
 
@@ -210,7 +210,7 @@
                 <select id="loanSocio"></select>
                 <div style="display: flex; gap: 10px; margin-top: 10px;">
                     <button onclick="uiEfectuarPrestamo()">Prestar</button>
-                    <button class="secondary" onclick="uiDeshacerPrestamo()">↩️ Deshacer Último</button>
+                    <button class="secondary" onclick="uiDeshacerPrestamo()"> Deshacer Último</button>
                 </div>
             </div>
         </div>
@@ -268,11 +268,11 @@
                     </table>
                 </div>
             </div>
-           
+            
             <div class="section">
                 <h2>RF-04: Reportes Avanzados</h2>
                 <button onclick="uiGenerarReporte()" style="width: 100%; margin-bottom: 10px;">Generar Reporte en Pantalla</button>
-                <button class="secondary" onclick="uiDescargarReporteTXT()" style="width: 100%; margin-bottom: 15px; background: #241b17;">💾 Descargar como .TXT</button>
+                <button class="secondary" onclick="uiDescargarReporteTXT()" style="width: 100%; margin-bottom: 15px; background: #241b17;"> Descargar como .TXT</button>
                 <textarea id="areaReporte" rows="12" readonly style="font-family: monospace; font-size: 11px; background: #080605; color: #e5dfd3; border-color: #3d2f26; width: 100%;"></textarea>
             </div>
         </div>
@@ -382,7 +382,7 @@ class ReporteCompletoSGB extends ReporteTemplate {
         res += "--- INVENTARIO DE RECURSOS ---\n";
         if(recursos.length === 0) res += "(Catálogo Vacío)\n";
         else res += recursos.map(r => `• [${r.estado.toUpperCase()}] ID: ${r.id} -> ${r.getDescripcion()} (${r.categoria})`).join("\n") + "\n";
-       
+        
         res += "\n--- PADRÓN DE SOCIOS AFILIADOS ---\n";
         if(socios.length === 0) res += "(No hay socios registrados)\n";
         else res += socios.map(s => `• ID: ${s.id} -> ${s.nombre} | Contacto: ${s.email} / ${s.telefono}`).join("\n");
@@ -448,7 +448,7 @@ class BibliotecaCore {
 
     registrarObservador(obs) { this.observadores.push(obs); }
     notificarTodos(msg, emailDestino = null) { this.observadores.forEach(o => o.notificar(msg, emailDestino)); }
-   
+    
     guardarCambios() {
         JSONRepository.guardar("sgb_recursos", this.recursos);
         JSONRepository.guardar("sgb_socios", this.socios);
@@ -571,7 +571,7 @@ function actualizarTablasUI() {
     const selRecurso = document.getElementById("loanRecurso");
     const selSocio = document.getElementById("loanSocio");
     const selSocioMsg = document.getElementById("msgSocioDestino");
-   
+    
     tbody.innerHTML = ""; tbodySocios.innerHTML = ""; selRecurso.innerHTML = ""; selSocio.innerHTML = ""; selSocioMsg.innerHTML = "";
 
     // Render Catálogo
@@ -606,7 +606,7 @@ function actualizarTablasUI() {
 
         const opt1 = document.createElement("option"); opt1.value = s.id; opt1.textContent = s.getIdentificacion();
         selSocio.appendChild(opt1);
-       
+        
         const opt2 = document.createElement("option"); opt2.value = s.id; opt2.textContent = `${s.nombre} (${s.email})`;
         selSocioMsg.appendChild(opt2);
     });
@@ -675,7 +675,7 @@ function uiEnviarMensajeManual() {
 
 function uiBuscar() {
     const res = biblioteca.buscar(document.getElementById('estrategiaBusqueda').value, document.getElementById('inputBusqueda').value);
-    document.getElementById('resultadosBusqueda').innerHTML = res.length ? res.map(r => `<p>🔍 [${r.estado.toUpperCase()}] <strong>${r.getDescripcion()}</strong></p>`).join("") : "<p>Sin resultados.</p>";
+    document.getElementById('resultadosBusqueda').innerHTML = res.length ? res.map(r => `<p> [${r.estado.toUpperCase()}] <strong>${r.getDescripcion()}</strong></p>`).join("") : "<p>Sin resultados.</p>";
 }
 
 function uiGenerarReporte() { document.getElementById('areaReporte').innerText = biblioteca.ejecutarReporte(); }
@@ -694,4 +694,3 @@ function uiDescargarReporteTXT() {
 </script>
 </body>
 </html>
-
