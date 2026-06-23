@@ -2,291 +2,696 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Examen Parcial - Universidad La Salle</title>
+    <title>SGB - Sistema de Gestión de Biblioteca (Arquitectura de Software)</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+   
     <style>
-        :root {
-            --primary: #002f6c;
-            --secondary: #0056b3;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --success: #28a745;
-            --border: #dee2e6;
-        }
-
+        /* ESTILOS BASE CON LA NUEVA PALETA OSCURA Y ELEGANTE */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 300;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #0d0d0d; /* Negro profundo de fondo */
+            color: #e5dfd3; /* Texto crema suave para máxima legibilidad */
         }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        header h1 { margin: 0; font-size: 2.2rem; }
-        header h2 { margin: 0.5rem 0 0 0; font-size: 1.3rem; font-weight: 300; color: #cbd5e1; }
-
         .container {
             max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+            margin: auto;
+            background: #1a1512; /* Marrón ultra oscuro para los contenedores */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid #3d2f26; /* Borde sutil marrón */
         }
-
-        .card {
-            background: white;
-            padding: 2rem;
+        h1, h2, h3 {
+            font-family: 'Times New Roman', Times, serif;
+            color: #d4af37; /* Toques dorados elegantes en títulos */
+            border-bottom: 1px solid #544133;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #3d2f26;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            background: #140f0d; /* Fondo de tarjetas aún más oscuro */
         }
-
-        h2.section-title {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
+        .log {
+            background: #080605;
+            color: #a8dadc;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            height: 180px;
+            overflow-y: auto;
+            border-radius: 6px;
+            border: 1px solid #2b2019;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
         }
-
-        .meta-grid {
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
-
-        .meta-item strong { color: var(--secondary); }
-
+       
+        /* BOTONES CON EL ROJO INTENSO Y TOQUES DORADOS */
+        button {
+            font-family: inherit;
+            background: #800020; /* Rojo borgoña / vino intenso sexy */
+            color: #ffffff;
+            border: 1px solid #a31d33;
+            padding: 10px 18px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #a31d33; /* Rojo más vivo al pasar el mouse */
+            border-color: #d4af37; /* Destello dorado al hacer hover */
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+        button.secondary {
+            background: #3d2f26;
+            color: #d4af37;
+            border: 1px solid #544133;
+        }
+        button.secondary:hover {
+            background: #544133;
+            border-color: #d4af37;
+        }
+        button.danger {
+            background: #4a000b;
+            border: 1px solid #800020;
+            color: #ffb3b3;
+        }
+        button.danger:hover {
+            background: #800020;
+            border-color: #ff4d6d;
+        }
+       
+        /* INPUTS ESTILO DARK PREMIUM */
+        input, select, textarea {
+            font-family: inherit;
+            background-color: #1a1512;
+            color: #e5dfd3;
+            padding: 10px;
+            margin-bottom: 12px;
+            width: 100%;
+            border: 1px solid #544133;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #d4af37; /* Foco dorado en los campos */
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+        }
+       
+        #authSection {
+            background: #140f0d;
+            border: 2px solid #544133;
+        }
+        #appContent { display: none; }
+       
+        .user-badge {
+            background: #800020;
+            color: #ffffff;
+            border: 1px solid #d4af37;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+       
+        /* TABLAS OSCURAS CON CONTRASTE */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            background: #140f0d;
         }
-
-        table, th, td { border: 1px solid var(--border); }
-        th, td { padding: 0.75rem; text-align: left; }
-        th { background-color: var(--primary); color: white; }
-        tr:nth-child(even) { background-color: var(--light); }
-
-        /* Consola de Demostración Interactiva */
-        .demo-box {
-            background: #2d3748;
-            color: #fff;
-            padding: 1.5rem;
-            border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            margin-top: 1rem;
+        table, th, td { border: 1px solid #3d2f26; }
+        th, td { padding: 10px; text-align: left; font-size: 14px; }
+        th {
+            background: #241b17;
+            color: #d4af37; /* Encabezados de tabla dorados */
         }
-
-        .console-log {
-            background: #1a202c;
-            padding: 1rem;
-            border-radius: 4px;
-            max-height: 200px;
-            overflow-y: auto;
-            color: #48bb78;
-            margin-top: 1rem;
-            border-left: 4px solid var(--success);
-        }
-
-        .btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-            transition: background 0.2s;
-        }
-
-        .btn:hover { background-color: #004085; }
-        select { padding: 0.5rem; border-radius: 4px; margin-right: 0.5rem; }
+        td { color: #e5dfd3; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>UNIVERSIDAD LA SALLE</h1>
-        <h2>Facultad de Arquitectura e Ingenierías</h2>
-        <p style="margin: 0.5rem 0 0 0; font-style: italic;">Fundamentos de Diseño de Software</p>
+<div class="container">
+    <header style="text-align: center; margin-bottom: 30px;">
+        <img src="https://i.postimg.cc/mD8gDfqy/Logo-La-Salle.png" alt="Logo La Salle" width="90" style="filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.5));">
+        <h3 style="margin: 5px 0; color: #a68b56;">UNIVERSIDAD LA SALLE - INGENIERÍA DE SOFTWARE</h3>
+        <h1 style="margin: 0; border: none;">SISTEMA DE GESTIÓN DE BIBLIOTECA (SGB PRO)</h1>
     </header>
 
-    <div class="container">
-
-        <div class="card">
-            <h2 class="section-title">Aplicación de Patrones de Diseño en un Sistema de Gestión de Biblioteca</h2>
-            <div class="meta-grid">
-                <div class="meta-item">
-                    <strong>Docente:</strong><br>Ricardo Fabrizio Calienes Rodriguez
-                </div>
-                <div class="meta-item">
-                    <strong>Estudiantes:</strong><br>
-                    • Dayehika Pacheco Carrera<br>
-                    • Joselyn Toribio Saloma<br>
-                    • Brayan Portugal Gavancho<br>
-                    • Valentino Carpio Arana<br>
-                    • Miguel Torres Campano
-                </div>
+    <div id="authSection" class="section">
+        <h2>🔒 Autenticación Obligatoria (Control de Acceso)</h2>
+        <div class="grid-3">
+            <div>
+                <h3>1. Registrar Bibliotecario</h3>
+                <input type="text" id="regUsuario" placeholder="Nombre completo">
+                <input type="email" id="regEmail" placeholder="correo@gmail.com">
+                <input type="password" id="regPassword" placeholder="Contraseña">
+                <button onclick="uiRegistrarUsuario()">Crear Cuenta</button>
+            </div>
+            <div>
+                <h3>2. Iniciar Sesión</h3>
+                <input type="email" id="loginEmail" placeholder="correo@gmail.com">
+                <input type="password" id="loginPassword" placeholder="Contraseña">
+                <button onclick="uiIniciarSesion()">Ingresar al Sistema</button>
             </div>
         </div>
-
-        <div class="card">
-            <h2 class="section-title">1. Introducción y Planteamiento del Problema</h2>
-            <p><strong>Descripción:</strong> El diseño de software de calidad representa uno de los principales desafíos en la ingeniería de sistemas actuales. El crecimiento de las aplicaciones exige altos niveles de mantenibilidad y extensibilidad[cite: 14, 15]. Este trabajo aborda un <strong>Sistema de Gestión de Biblioteca (SGB)</strong> aplicando patrones de diseño para mitigar problemas de código acoplado e improvisado[cite: 17, 26].</p>
-            <p><strong>Problema Principal:</strong> ¿Cómo diseñar un sistema de gestión de biblioteca que sea extensible, mantenible y de bajo acoplamiento mediante la aplicación sistemática de patrones de diseño de software? [cite: 28]</p>
-            <h3>Objetivo General</h3>
-            <p>Diseñar e implementar conceptualmente un sistema de gestión de biblioteca aplicando patrones de diseño creacionales, estructurales y de comportamiento[cite: 39].</p>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">2. Marco Teórico: Principios SOLID Aplicados</h2>
-            <ul>
-                <li><strong>SRP (Responsabilidad Única):</strong> <code>SistemaGestion</code> no envía notificaciones directamente, delega a los Observadores[cite: 50, 51, 52].</li>
-                <li><strong>OCP (Abierto/Cerrado):</strong> Permite agregar nuevas búsquedas (Strategy) o notificaciones sin alterar clases base[cite: 53, 54].</li>
-                <li><strong>LSP (Sustitución de Liskov):</strong> Las implementaciones como <code>NotificadorEmail</code> son intercambiables de forma transparente[cite: 55, 56].</li>
-                <li><strong>ISP (Segregación de Interfaces):</strong> Interfaces específicas independientes como <code>IObservador</code> y <code>IEstrategiaBusqueda</code>[cite: 57, 58].</li>
-                <li><strong>DIP (Inversión de Dependencias):</strong> Los módulos de alto nivel dependen de abstracciones, no de detalles concretos[cite: 59, 60].</li>
-            </ul>
-        </div>
-
-        <div class="card" style="border-left: 5px solid var(--secondary);">
-            <h2 class="section-title">3. Laboratorio Interactivo: Patrones Ejecutándose en Vivo</h2>
-            <p>Usa los controles de abajo para interactuar directamente con la arquitectura simulada de tu informe:</p>
-            
-            <div class="demo-box">
-                <div>
-                    <strong>1. Factory Method (Crear Recurso Bibliográfico):</strong><br>
-                    <select id="factoryType">
-                        <option value="Fisico">Libro Físico</option>
-                        <option value="Digital">Libro Digital</option>
-                        <option value="Revista">Revista Académica</option>
-                    </select>
-                    <button class="btn" onclick="ejecutarFactory()">Instanciar con Factory</button>
-                </div>
-
-                <div style="margin-top: 1.5rem;">
-                    <strong>2. Observer & Strategy (Simular Préstamo y Búsqueda):</strong><br>
-                    <button class="btn" onclick="simularPrestamo()">Registrar Préstamo (Dispara Observers)</button>
-                    <select id="strategyType">
-                        <option value="Titulo">Búsqueda por Título</option>
-                        <option value="Autor">Búsqueda por Autor</option>
-                    </select>
-                    <button class="btn" onclick="ejecutarStrategy()">Cambiar Estrategia y Buscar</button>
-                </div>
-
-                <div class="console-log" id="consoleOutput">
-                    >> Consola del Sistema de Biblioteca lista. Esperando acciones...
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">4. Matriz de Resultados (Antes vs. Después)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aspecto</th>
-                        <th>Antes (Sin Patrones)</th>
-                        <th>Después (Con Patrones)</th>
-                        <th>Mejora Obtenida</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Acoplamiento</strong></td>
-                        <td>Alto: módulos interdependientes, cambios rompían código[cite: 191].</td>
-                        <td>Bajo: comunicación vía interfaces. Cambios localizados[cite: 191].</td>
-                        <td>Reducción de dependencias directas: de 12 a 3[cite: 191].</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Extensibilidad</strong></td>
-                        <td>Modificar clases existentes de manera rígida (Viola OCP)[cite: 191].</td>
-                        <td>Nuevos comportamientos mediante interfaces independientes[cite: 191].</td>
-                        <td>Tiempo de integración de features baja de 8h a 2h[cite: 191].</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Notificaciones</strong></td>
-                        <td>Monolítico (un método enviaba todo acoplado)[cite: 192].</td>
-                        <td>Desacoplado por completo vía patrón Observer[cite: 192].</td>
-                        <td>Agregar canal pasa de alterar código a crear clase nueva[cite: 193].</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
     </div>
 
-    <script>
-        const consoleOutput = document.getElementById('consoleOutput');
+    <div id="appContent">
+        <div class="user-badge">
+            👤 Operador Activo: <strong id="sessionBadge" style="color: #d4af37;">ninguno</strong>
+            <button onclick="uiCerrarSesion()" style="background:#4a000b; border-color: #800020; padding:4px 10px; margin-left:15px; font-size:12px;">Cerrar Sesión</button>
+        </div>
 
-        function logToConsole(text) {
-            consoleOutput.innerHTML += `<br>> ${text}`;
-            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        <div class="grid-3">
+            <div class="section">
+                <h2>RF-01: Gestión de Recursos</h2>
+                <input type="text" id="titulo" placeholder="Título del Material">
+                <input type="text" id="autor" placeholder="Autor / Editor">
+                <input type="text" id="categoria" placeholder="Categoría (Ej: Ciencia, Novela)">
+                <select id="tipoRecurso">
+                    <option value="fisico">Libro Físico</option>
+                    <option value="digital">Libro Digital (Cifrado DRM)</option>
+                    <option value="revista">Revista Académica (Solo Referencia)</option>
+                </select>
+                <button onclick="uiRegistrarRecurso()">Registrar en Catálogo</button>
+            </div>
+
+            <div class="section">
+                <h2>RF-02: Registro de Socios</h2>
+                <input type="text" id="nombreContacto" placeholder="Nombre completo del Socio">
+                <input type="email" id="emailContacto" placeholder="correo-real-del-socio@gmail.com">
+                <input type="text" id="telefonoContacto" placeholder="+51999888777">
+                <button onclick="uiRegistrarContacto()">Dar de Alta Socio</button>
+            </div>
+
+            <div class="section">
+                <h2>RF-02: Ciclo de Préstamos</h2>
+                <label style="color: #a68b56;">Seleccionar Recurso Disponible:</label>
+                <select id="loanRecurso"></select>
+                <label style="color: #a68b56;">Seleccionar Socio:</label>
+                <select id="loanSocio"></select>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button onclick="uiEfectuarPrestamo()">Prestar</button>
+                    <button class="secondary" onclick="uiDeshacerPrestamo()">↩️ Deshacer Último</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>RF-05: Central de Comunicaciones Manuales (Emails a la Medida)</h2>
+            <div class="grid-3" style="grid-template-columns: 1fr 2fr; gap: 20px;">
+                <div>
+                    <label style="color: #a68b56;">Socio Destinatario:</label>
+                    <select id="msgSocioDestino"></select>
+                    <input type="text" id="msgAsunto" placeholder="Asunto del correo institucional">
+                </div>
+                <div>
+                    <label style="color: #a68b56;">Cuerpo del Mensaje:</label>
+                    <textarea id="msgCuerpo" rows="4" placeholder="Escribe los detalles de la notificación aquí..."></textarea>
+                    <button onclick="uiEnviarMensajeManual()" style="float: right;">Enviar Correo Redactado</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>RF-03: Buscador Multicriterio</h2>
+            <div style="display: flex; gap: 15px;">
+                <input type="text" id="inputBusqueda" placeholder="Término de búsqueda..." style="width:50%;">
+                <select id="estrategiaBusqueda" style="width:35%;">
+                    <option value="titulo">Por Título de Libro/Revista</option>
+                    <option value="autor">Por Autor</option>
+                    <option value="categoria">Por Categoría Temática</option>
+                    <option value="disponibilidad">Por Estado (disponible/prestado)</option>
+                </select>
+                <button onclick="uiBuscar()" style="height: 42px;">Buscar</button>
+            </div>
+            <div id="resultadosBusqueda" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="grid-3" style="grid-template-columns: 2fr 1fr;">
+            <div class="section">
+                <h2>Inventario General del Catálogo</h2>
+                <div style="overflow-x: auto;">
+                    <table id="tablaInventario">
+                        <thead>
+                            <tr><th>ID</th><th>Descripción / Tipo</th><th>Categoría</th><th>Estado</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <h2>Directorio General de Socios Registrados</h2>
+                <div style="overflow-x: auto;">
+                    <table id="tablaSocios">
+                        <thead>
+                            <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+           
+            <div class="section">
+                <h2>RF-04: Reportes Avanzados</h2>
+                <button onclick="uiGenerarReporte()" style="width: 100%; margin-bottom: 10px;">Generar Reporte en Pantalla</button>
+                <button class="secondary" onclick="uiDescargarReporteTXT()" style="width: 100%; margin-bottom: 15px; background: #241b17;">💾 Descargar como .TXT</button>
+                <textarea id="areaReporte" rows="12" readonly style="font-family: monospace; font-size: 11px; background: #080605; color: #e5dfd3; border-color: #3d2f26; width: 100%;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Notificaciones y Trazabilidad del Sistema (Patrón Observer)</h2>
+        <div id="consolaNotificaciones" class="log"></div>
+    </div>
+</div>
+
+<script>
+/**
+ * ============================================================================
+ * 1. CAPA DE DOMINIO (Domain Layer)
+ * ============================================================================
+ */
+class Usuario {
+    constructor(nombre, email, password) {
+        this.nombre = nombre; this.email = email; this.password = password;
+    }
+}
+
+class Socio {
+    constructor(id, nombre, email, telefono) {
+        this.id = id; this.nombre = nombre; this.email = email; this.telefono = telefono;
+    }
+    getIdentificacion() { return `${this.nombre} (ID: ${this.id})`; }
+}
+
+class RecursoBase {
+    constructor(id, titulo, autor, categoria) {
+        this.id = id; this.titulo = titulo; this.autor = autor; this.categoria = categoria; this.estado = "disponible";
+    }
+    getDescripcion() { return `${this.titulo} de ${this.autor}`; }
+}
+
+class DecoradorDRM extends RecursoBase {
+    constructor(recurso) {
+        super(recurso.id, resourceTitle(recurso), resourceAuthor(recurso), resourceCategory(recurso));
+        this.recurso = resourceUnderlying(recurso);
+    }
+    getDescripcion() { return `${this.recurso.getDescripcion()} [PROTEGIDO DIGITAL DRM]`; }
+}
+function resourceTitle(r){ return r.titulo; } function resourceAuthor(r){ return r.autor; } function resourceCategory(r){ return r.categoria; } function resourceUnderlying(r){ return r.recurso || r; }
+
+class DecoradorSoloReferencia extends RecursoBase {
+    constructor(recurso) {
+        super(recurso.id, resourceTitle(recurso), resourceAuthor(recurso), resourceCategory(recurso));
+        this.recurso = resourceUnderlying(recurso);
+    }
+    getDescripcion() { return `${this.recurso.getDescripcion()} [SOLO REFERENCIA]`; }
+}
+
+class FactoryRecursosAcademicos {
+    static crear(id, tipo, titulo, autor, categoria) {
+        let recurso = new RecursoBase(id, titulo, autor, categoria);
+        if (tipo === 'digital') return new DecoradorDRM(recurso);
+        if (tipo === 'revista') return new DecoradorSoloReferencia(recurso);
+        return recurso;
+    }
+}
+
+const EstrategiasBusqueda = {
+    titulo: (c, lista) => lista.filter(r => r.titulo.toLowerCase().includes(c.toLowerCase())),
+    autor: (c, lista) => lista.filter(r => r.autor.toLowerCase().includes(c.toLowerCase())),
+    categoria: (c, lista) => lista.filter(r => r.categoria.toLowerCase().includes(c.toLowerCase())),
+    disponibilidad: (c, lista) => lista.filter(r => r.estado.toLowerCase() === c.toLowerCase())
+};
+
+class CommandTracker {
+    constructor() { this.historial = []; }
+    ejecutar(command) {
+        command.ejecutar();
+        this.historial.push(command);
+    }
+    deshacer() {
+        if (this.historial.length === 0) return false;
+        const command = this.historial.pop();
+        command.deshacer();
+        return true;
+    }
+}
+
+class PrestamoCommand {
+    constructor(recurso, socio) { this.recurso = recurso; this.socio = socio; }
+    ejecutar() { this.recurso.estado = "prestado"; }
+    deshacer() { this.recurso.estado = "disponible"; }
+}
+
+class ReporteTemplate {
+    generar(recursos, socios) {
+        let out = "=========================================================\n";
+        out += "     UNIVERSIDAD LA SALLE - REPORTE DE AUDITORÍA SGB     \n";
+        out += "=========================================================\n";
+        out += this.generarCuerpo(recursos, socios);
+        out += "\n=========================================================\n";
+        out += `Generado el: ${new Date().toLocaleDateString()} a las ${new Date().toLocaleTimeString()} | Fin del Reporte`;
+        return out;
+    }
+    generarCuerpo(recursos, socios) { throw new Error("Método abstracto"); }
+}
+
+class ReporteCompletoSGB extends ReporteTemplate {
+    generarCuerpo(recursos, socios) {
+        let res = `Resumen General: Recursos en Catálogo: ${recursos.length} | Socios Inscritos: ${socios.length}\n\n`;
+        res += "--- INVENTARIO DE RECURSOS ---\n";
+        if(recursos.length === 0) res += "(Catálogo Vacío)\n";
+        else res += recursos.map(r => `• [${r.estado.toUpperCase()}] ID: ${r.id} -> ${r.getDescripcion()} (${r.categoria})`).join("\n") + "\n";
+       
+        res += "\n--- PADRÓN DE SOCIOS AFILIADOS ---\n";
+        if(socios.length === 0) res += "(No hay socios registrados)\n";
+        else res += socios.map(s => `• ID: ${s.id} -> ${s.nombre} | Contacto: ${s.email} / ${s.telefono}`).join("\n");
+        return res;
+    }
+}
+
+/**
+ * ============================================================================
+ * 2. CAPA DE PERSISTENCIA (Repository)
+ * ============================================================================
+ */
+class JSONRepository {
+    static guardar(clave, datos) { localStorage.setItem(clave, JSON.stringify(datos)); }
+    static recuperar(clave) { return JSON.parse(localStorage.getItem(clave)) || []; }
+}
+
+/**
+ * ============================================================================
+ * 3. CAPA DE APLICACIÓN (Facade, Singleton & Observer)
+ * ============================================================================
+ */
+class CanalNotificacion {
+    constructor(nombre, facade) { this.nombre = nombre; this.facade = facade; }
+    notificar(msg, emailDestino = null) {
+        const log = document.getElementById('consolaNotificaciones');
+        if(log) {
+            log.innerHTML += `> [${this.nombre.toUpperCase()}]: ${msg}<br>`;
+            log.scrollTop = log.scrollHeight;
         }
+    }
+}
 
-        // --- 1. DEMOSTRACIÓN PATRÓN FACTORY METHOD ---
-        class RecursoBase {
-            constructor(tipo) { this.tipo = tipo; }
+class CanalEmailReal extends CanalNotificacion {
+    notificar(msg, emailDestino = null) {
+        super.notificar(msg);
+        let targetEmail = emailDestino;
+        if (msg.includes("[PRESTADO]") && !targetEmail) {
+            targetEmail = this.facade.obtenerUltimoSocioEmail();
         }
-        class FactoryLibro {
-            static crearRecurso(tipo) {
-                logToConsole(`[Factory] Centralizando creación...`);
-                return new RecursoBase(tipo);
-            }
+        if(targetEmail && this.facade.EMAILJS_PUBLIC_KEY !== "") {
+            const params = { to_email: targetEmail, subject: "Alerta Institucional SGB", message: msg, from_email: this.facade.getRemitenteActual() };
+            emailjs.send(this.facade.EMAILJS_SERVICE_ID, this.facade.EMAILJS_TEMPLATE_ID, params).catch(e => console.log("EmailJS inactivo"));
         }
-        function ejecutarFactory() {
-            const tipo = document.getElementById('factoryType').value;
-            const recurso = FactoryLibro.crearRecurso(tipo);
-            logToConsole(`[Éxito] Objeto 'RecursoBase' de tipo concretado creado: <strong>Libro${tipo}</strong>`);
+    }
+}
+
+class BibliotecaCore {
+    constructor() {
+        if (BibliotecaCore.instance) return BibliotecaCore.instance;
+        this.recursos = JSONRepository.recuperar("sgb_recursos").map(r => FactoryRecursosAcademicos.crear(r.id, r.tipo || 'fisico', r.titulo, r.autor, r.categoria));
+        const estados = JSONRepository.recuperar("sgb_estados");
+        this.recursos.forEach((r, i) => { if(estados[i]) r.estado = estados[i]; });
+
+        this.socios = JSONRepository.recuperar("sgb_socios").map(s => new Socio(s.id, s.nombre, s.email, s.telefono));
+        this.usuarios = JSONRepository.recuperar("sgb_usuarios");
+        this.operadorActivo = null;
+        this.ultimoSocioAfectado = null;
+        this.observadores = [];
+        this.commandTracker = new CommandTracker();
+        BibliotecaCore.instance = this;
+    }
+
+    registrarObservador(obs) { this.observadores.push(obs); }
+    notificarTodos(msg, emailDestino = null) { this.observadores.forEach(o => o.notificar(msg, emailDestino)); }
+   
+    guardarCambios() {
+        JSONRepository.guardar("sgb_recursos", this.recursos);
+        JSONRepository.guardar("sgb_socios", this.socios);
+        JSONRepository.guardar("sgb_usuarios", this.usuarios);
+        JSONRepository.guardar("sgb_estados", this.recursos.map(r => r.estado));
+    }
+}
+
+class BibliotecaFacade {
+    constructor() {
+        this.core = new BibliotecaCore();
+        this.EMAILJS_SERVICE_ID = "service_an7s6uy";
+        this.EMAILJS_TEMPLATE_ID = "template_ecaovha";
+        this.EMAILJS_PUBLIC_KEY = "97W3qOBeyptTNHTcO";
+        if(typeof emailjs !== 'undefined') emailjs.init({ publicKey: this.EMAILJS_PUBLIC_KEY });
+
+        this.core.registrarObservador(new CanalEmailReal("Email Gateway", this));
+        this.core.registrarObservador(new CanalNotificacion("SMS Gateway", this));
+    }
+
+    registrarUsuario(n, e, p) {
+        this.core.usuarios.push(new Usuario(n, e, p));
+        this.core.guardarCambios();
+        this.core.notificarTodos(`[SEGURIDAD] Cuenta dada de alta para: ${e}`);
+    }
+
+    login(e, p) {
+        const u = this.core.usuarios.find(user => user.email === e && user.password === p);
+        if(u) { this.core.operadorActivo = u; this.core.notificarTodos(`[SESIÓN] El bibliotecario ${u.nombre} tomó el control.`); return true; }
+        return false;
+    }
+
+    getRemitenteActual() { return this.core.operadorActivo ? this.core.operadorActivo.email : "anonimo@lasalle.edu"; }
+    obtenerUltimoSocioEmail() { return this.core.ultimoSocioAfectado ? this.core.ultimoSocioAfectado.email : null; }
+
+    registrarRecurso(tipo, t, a, c) {
+        const id = "R-" + (this.core.recursos.length + 101);
+        const nuevo = FactoryRecursosAcademicos.crear(id, tipo, t, a, c);
+        nuevo.tipo = tipo;
+        this.core.recursos.push(nuevo);
+        this.core.guardarCambios();
+        this.core.notificarTodos(`[INVENTARIO] Registrado: ${nuevo.getDescripcion()}`);
+    }
+
+    eliminarRecurso(idRecurso) {
+        const index = this.core.recursos.findIndex(r => r.id === idRecurso);
+        if(index !== -1) {
+            const desc = this.core.recursos[index].getDescripcion();
+            this.core.recursos.splice(index, 1);
+            this.core.guardarCambios();
+            this.core.notificarTodos(`[ELIMINACIÓN] Removido recurso del catálogo: "${desc}"`);
+            return true;
         }
+        return false;
+    }
 
-        // --- 2. DEMOSTRACIÓN PATRÓN OBSERVER ---
-        class SistemaGestionSubject {
-            constructor() { this.observadores = []; }
-            registrar(obs) { this.observadores.push(obs); }
-            notificar() {
-                logToConsole(`[Subject] Evento detectado. Notificando observadores asignados...`);
-                this.observadores.forEach(obs => obs.actualizar());
-            }
+    registrarContacto(n, e, t) {
+        const id = "S-" + (this.core.socios.length + 501);
+        const nuevo = new Socio(id, n, e, t);
+        this.core.socios.push(nuevo);
+        this.core.guardarCambios();
+        this.core.notificarTodos(`[SOCIOS] Nuevo socio activo: ${nuevo.getIdentificacion()}`);
+    }
+
+    eliminarSocio(idSocio) {
+        const index = this.core.socios.findIndex(s => s.id === idSocio);
+        if(index !== -1) {
+            const nombre = this.core.socios[index].nombre;
+            this.core.socios.splice(index, 1);
+            this.core.guardarCambios();
+            this.core.notificarTodos(`[ELIMINACIÓN] Socio dado de baja del sistema: ${nombre}`);
+            return true;
         }
-        const NotificadorEmail = { actualizar: () => logToConsole(`[Observer Email] ✉️ Correo enviado al alumno de La Salle.`) };
-        const NotificadorSMS = { actualizar: () => logToConsole(`[Observer SMS] 📱 Mensaje de texto de alerta enviado al teléfono.`) };
-        const NotificadorApp = { actualizar: () => logToConsole(`[Observer App] 🔔 Notificación Push enviada a la intranet.`) };
+        return false;
+    }
 
-        const sgbSubject = new SistemaGestionSubject();
-        sgbSubject.registrar(NotificadorEmail);
-        sgbSubject.registrar(NotificadorSMS);
-        sgbSubject.registrar(NotificadorApp);
-
-        function simularPrestamo() {
-            logToConsole(`[Sistema] Ejecutando: <code>registrarPréstamo(libroId)</code>`);
-            sgbSubject.notificar();
+    efectuarPrestamo(idRecurso, idSocio) {
+        const rec = this.core.recursos.find(r => r.id === idRecurso);
+        const soc = this.core.socios.find(s => s.id === idSocio);
+        if(rec && rec.estado === "disponible") {
+            this.core.ultimoSocioAfectado = soc;
+            const cmd = new PrestamoCommand(rec, soc);
+            this.core.commandTracker.ejecutar(cmd);
+            this.core.guardarCambios();
+            this.core.notificarTodos(`[PRESTADO] El recurso "${rec.getDescripcion()}" fue asignado a ${soc.nombre}`);
+            return true;
         }
+        return false;
+    }
 
-        // --- 3. DEMOSTRACIÓN PATRÓN STRATEGY ---
-        const EstrategiaTitulo = { buscar: () => logToConsole(`[Strategy] Buscando en base de datos indexada por columna: 'Título'`) };
-        const EstrategiaAutor = { buscar: () => logToConsole(`[Strategy] Filtrando coincidencias de catálogo por columna: 'Autor'`) };
-
-        let estrategiaActual = EstrategiaTitulo;
-
-        function ejecutarStrategy() {
-            const tipo = document.getElementById('strategyType').value;
-            estrategiaActual = (tipo === "Titulo") ? EstrategiaTitulo : EstrategiaAutor;
-            logToConsole(`[Catálogo] Estrategia de búsqueda conmutada en tiempo de ejecución.`);
-            estrategiaActual.buscar();
+    deshacerPrestamo() {
+        if(this.core.commandTracker.deshacer()) {
+            this.core.guardarCambios();
+            this.core.notificarTodos(`[DESHACER] Se revocó el préstamo de forma segura.`);
+            return true;
         }
-    </script>
+        return false;
+    }
+
+    enviarNotificacionManual(idSocio, asunto, cuerpo) {
+        const soc = this.core.socios.find(s => s.id === idSocio);
+        if(soc) { this.core.notificarTodos(`[MANUAL] ${asunto}: ${cuerpo}`, soc.email); return true; }
+        return false;
+    }
+
+    buscar(est, cri) { return EstrategiasBusqueda[est](cri, this.core.recursos); }
+    ejecutarReporte() { return new ReporteCompletoSGB().generar(this.core.recursos, this.core.socios); }
+}
+
+const biblioteca = new BibliotecaFacade();
+
+/**
+ * ============================================================================
+ * 4. CAPA DE PRESENTACIÓN (UI)
+ * ============================================================================
+ */
+function actualizarTablasUI() {
+    const tbody = document.querySelector("#tablaInventario tbody");
+    const tbodySocios = document.querySelector("#tablaSocios tbody");
+    const selRecurso = document.getElementById("loanRecurso");
+    const selSocio = document.getElementById("loanSocio");
+    const selSocioMsg = document.getElementById("msgSocioDestino");
+   
+    tbody.innerHTML = ""; tbodySocios.innerHTML = ""; selRecurso.innerHTML = ""; selSocio.innerHTML = ""; selSocioMsg.innerHTML = "";
+
+    // Render Catálogo
+    biblioteca.core.recursos.forEach(r => {
+        tbody.innerHTML += `<tr>
+            <td>${r.id}</td>
+            <td>${r.getDescripcion()}</td>
+            <td>${r.categoria}</td>
+            <td style="color:${r.estado==='disponible'?'#48bb78':'#ff4d6d'}; font-weight:bold;">${r.estado.toUpperCase()}</td>
+            <td>
+                <button class="secondary" style="padding:2px 6px; font-size:11px;" onclick="uiDevolverDirecto('${r.id}')" ${r.estado==='disponible'?'disabled':''}>Devolver</button>
+                <button class="danger" style="padding:2px 6px; font-size:11px; margin-left:4px;" onclick="uiEliminarRecurso('${r.id}')">Eliminar</button>
+            </td>
+        </tr>`;
+        if(r.estado === "disponible") {
+            const opt = document.createElement("option"); opt.value = r.id; opt.textContent = r.getDescripcion();
+            selRecurso.appendChild(opt);
+        }
+    });
+
+    // Render Socios
+    biblioteca.core.socios.forEach(s => {
+        tbodySocios.innerHTML += `<tr>
+            <td>${s.id}</td>
+            <td>${s.nombre}</td>
+            <td>${s.email}</td>
+            <td>${s.telefono}</td>
+            <td>
+                <button class="danger" style="padding:2px 6px; font-size:11px;" onclick="uiEliminarSocio('${s.id}')">Dar de Baja</button>
+            </td>
+        </tr>`;
+
+        const opt1 = document.createElement("option"); opt1.value = s.id; opt1.textContent = s.getIdentificacion();
+        selSocio.appendChild(opt1);
+       
+        const opt2 = document.createElement("option"); opt2.value = s.id; opt2.textContent = `${s.nombre} (${s.email})`;
+        selSocioMsg.appendChild(opt2);
+    });
+}
+
+function uiRegistrarUsuario() {
+    const n = document.getElementById('regUsuario').value; const e = document.getElementById('regEmail').value; const p = document.getElementById('regPassword').value;
+    if(!n || !e || !p) return alert("Complete los campos.");
+    biblioteca.registrarUsuario(n, e, p); alert("¡Bibliotecario Creado!");
+}
+
+function uiIniciarSesion() {
+    if(biblioteca.login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)) {
+        document.getElementById('authSection').style.display = 'none'; document.getElementById('appContent').style.display = 'block';
+        document.getElementById('sessionBadge').innerText = biblioteca.getRemitenteActual();
+        actualizarTablasUI();
+    } else { alert("Credenciales Inválidas."); }
+}
+
+function uiCerrarSesion() { location.reload(); }
+
+function uiRegistrarRecurso() {
+    biblioteca.registrarRecurso(document.getElementById('tipoRecurso').value, document.getElementById('titulo').value, document.getElementById('autor').value, document.getElementById('categoria').value);
+    actualizarTablasUI();
+    document.getElementById('titulo').value = ''; document.getElementById('autor').value = '';
+}
+
+function uiEliminarRecurso(id) {
+    if(confirm("¿Seguro que deseas eliminar este recurso de forma permanente del catálogo?")) {
+        if(biblioteca.eliminarRecurso(id)) actualizarTablasUI();
+    }
+}
+
+function uiRegistrarContacto() {
+    biblioteca.registrarContacto(document.getElementById('nombreContacto').value, document.getElementById('emailContacto').value, document.getElementById('telefonoContacto').value);
+    actualizarTablasUI();
+    document.getElementById('nombreContacto').value = ''; document.getElementById('emailContacto').value = ''; document.getElementById('telefonoContacto').value = '';
+}
+
+function uiEliminarSocio(id) {
+    if(confirm("¿Seguro que deseas dar de baja a este socio del sistema?")) {
+        if(biblioteca.eliminarSocio(id)) actualizarTablasUI();
+    }
+}
+
+function uiEfectuarPrestamo() {
+    if(biblioteca.efectuarPrestamo(document.getElementById("loanRecurso").value, document.getElementById("loanSocio").value)) actualizarTablasUI();
+}
+
+function uiDeshacerPrestamo() { if(biblioteca.deshacerPrestamo()) actualizarTablasUI(); }
+
+function uiDevolverDirecto(id) {
+    const rec = biblioteca.core.recursos.find(r => r.id === id);
+    if(rec) {
+        rec.estado = "disponible"; biblioteca.core.guardarCambios();
+        biblioteca.core.notificarTodos(`[DEVOLUCIÓN] El recurso "${rec.getDescripcion()}" volvió.`);
+        actualizarTablasUI();
+    }
+}
+
+function uiEnviarMensajeManual() {
+    if(biblioteca.enviarNotificacionManual(document.getElementById("msgSocioDestino").value, document.getElementById("msgAsunto").value, document.getElementById("msgCuerpo").value)) {
+        alert("Mensaje enviado con éxito."); document.getElementById("msgAsunto").value = ""; document.getElementById("msgCuerpo").value = "";
+    }
+}
+
+function uiBuscar() {
+    const res = biblioteca.buscar(document.getElementById('estrategiaBusqueda').value, document.getElementById('inputBusqueda').value);
+    document.getElementById('resultadosBusqueda').innerHTML = res.length ? res.map(r => `<p>🔍 [${r.estado.toUpperCase()}] <strong>${r.getDescripcion()}</strong></p>`).join("") : "<p>Sin resultados.</p>";
+}
+
+function uiGenerarReporte() { document.getElementById('areaReporte').innerText = biblioteca.ejecutarReporte(); }
+
+function uiDescargarReporteTXT() {
+    const textoReporte = biblioteca.ejecutarReporte();
+    const blob = new Blob([textoReporte], { type: 'text/plain;charset=utf-8' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Reporte_SGB_LaSalle_${new Date().toISOString().slice(0,10)}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    biblioteca.core.notificarTodos("[REPORTE] Se exportó con éxito el archivo estructurado .txt al disco local.");
+}
+</script>
 </body>
 </html>
-
 
